@@ -220,7 +220,7 @@ int main(int argc, char** argv)
 	
 	////////////////////////////////////////////////////////////////
 	// Transferir la matriz del archivo fileName a memoria principal
-	Timing timer0, timer1, timer3, timer_total;
+	Timing timer0, timer1, timer2, timer_total;
 	timer_total.start();
 	//
 	timer0.start();
@@ -230,7 +230,8 @@ int main(int argc, char** argv)
 	timer1.start();
 	std::sort(m1._matrixInMemory, m1._matrixInMemory + m1._nfil);
 	timer1.stop();
-
+	
+	MatrixToMem m2(fileName);
 	//Comienza el Ordenamiento Vectorial
 	timer2.start();
 	__m128i  dataReg[4];
