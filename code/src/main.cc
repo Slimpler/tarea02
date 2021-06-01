@@ -216,8 +216,6 @@ int main(int argc, char** argv)
 		}
 	}
 
-	
-	
 	////////////////////////////////////////////////////////////////
 	// Transferir la matriz del archivo fileName a memoria principal
 	Timing timer0, timer1, timer2, timer_total;
