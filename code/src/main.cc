@@ -220,7 +220,7 @@ int main(int argc, char** argv)
 	
 	////////////////////////////////////////////////////////////////
 	// Transferir la matriz del archivo fileName a memoria principal
-	Timing timer0, timer1, timer2, timer3, timer4, timer_total;
+	Timing timer0, timer1, timer3, timer_total;
 	timer_total.start();
 	//
 	timer0.start();
@@ -230,13 +230,9 @@ int main(int argc, char** argv)
 	timer1.start();
 	std::sort(m1._matrixInMemory, m1._matrixInMemory + m1._nfil);
 	timer1.stop();
-	//
-	timer2.start();
-	MatrixToMem m2(fileName);
-	timer2.stop();
 
 	//Comienza el Ordenamiento Vectorial
-	timer3.start();
+	timer2.start();
 	__m128i  dataReg[4];
 	for(size_t i = 0; i < m2._nfil; i += 16){
 		if(m2._nfil==1000 && i==992){
@@ -291,18 +287,13 @@ int main(int argc, char** argv)
 		m2._matrixInMemory[i+14] = _mm_extract_epi32(dataReg[3],2);
 		m2._matrixInMemory[i+15] = _mm_extract_epi32(dataReg[3],3);
 	}
-	timer3.stop();
-	timer4.start();
-	std::sort(m2._matrixInMemory, m2._matrixInMemory + m2._nfil);
-	timer4.stop();
+	timer2.stop();
 	timer_total.stop();
 
 	//Mostrando en Pantalla
 	std::cout << "- Time to transfer to main memory: " << timer0.elapsed() << std::endl;
 	std::cout << "- Time to sort in main memory(m1): " << timer1.elapsed() << std::endl;
-	std::cout << "- Time to transfer to main memory: " << timer2.elapsed() << std::endl;
-	std::cout << "- Tiempo de ordenamiento vectorial "<< timer3.elapsed() <<std::endl;
-	std::cout << "- Time to sort in main memory (m2): " << timer4.elapsed() << std::endl;
+	std::cout << "- Tiempo de ordenamiento vectorial "<< timer2.elapsed() <<std::endl;
 	std::cout << "- Tiempo ejecución total: " << timer_total.elapsed() << std::endl;
 
 
