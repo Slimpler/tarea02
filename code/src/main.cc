@@ -244,10 +244,10 @@ int main(int argc, char** argv)
 			dataReg[1] = _mm_setr_epi32(m2._matrixInMemory[i+4],m2._matrixInMemory[i+5],m2._matrixInMemory[i+6],m2._matrixInMemory[i+7]);
 			dataReg[2] = _mm_setr_epi32(m2._matrixInMemory[i+8],m2._matrixInMemory[i+9],m2._matrixInMemory[i+10],m2._matrixInMemory[i+11]);
 			dataReg[3] = _mm_setr_epi32(m2._matrixInMemory[i+12],m2._matrixInMemory[i+13],m2._matrixInMemory[i+14],m2._matrixInMemory[i+15]);
-			//Ordenar los 4 datos de cada registro a traves del Sorting Network
+			//Ordenando los 4 datos de cada registro a con Sorting Network
 			sortNet(dataReg);
 			transpose(dataReg);
-			//Ordenar 8 datos en total de dos registros a travÃ©s del Bitonic Sorter
+			//Ordenando los 8 datos en total de dos registros con Bitonic Sorter
 			bitonicSorter(&dataReg[0], &dataReg[1]);
 			m2._matrixInMemory[i] = _mm_extract_epi32(dataReg[0],0);
 			m2._matrixInMemory[i+1] = _mm_extract_epi32(dataReg[0],1);
@@ -267,13 +267,13 @@ int main(int argc, char** argv)
 		//Ordenabdo los 4 datos de cada registro a traves del Sorting Network
 		sortNet(dataReg);
 		transpose(dataReg);
-		//Ordenando los 8 datos en total de dos registros a traves del Bitonic Sorter
+		//Ordenando los 8 datos en total de dos registros con Bitonic Sorter
 		bitonicSorter(&dataReg[0], &dataReg[1]);
 		bitonicSorter(&dataReg[2], &dataReg[3]);
-		//Ordenando los 16 datos a travÃ©s de la Bitonic Merge Network
+		//Ordenando los 16 datos con Bitonic Merge Network
 		BNM(dataReg);
 		transpose(dataReg);
-		//Copiando el contenido de los registros vectoriales a main memory
+		//Copiando el contenido de los registros vectoriales a la memoria principal
 		m2._matrixInMemory[i] = _mm_extract_epi32(dataReg[0],0);
 		m2._matrixInMemory[i+1] = _mm_extract_epi32(dataReg[0],1);
 		m2._matrixInMemory[i+2] = _mm_extract_epi32(dataReg[0],2);
